@@ -1,0 +1,91 @@
+﻿<Window x:Class="FlightScheduleDME.View.DepartureWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        WindowState="Normal" WindowStyle="SingleBorderWindow" StateChanged="MainWindow_StateChanged"
+        MouseDoubleClick="Control_OnMouseDoubleClick"
+        xmlns:viewModel="clr-namespace:FlightScheduleDME.ViewModel"
+        xmlns:models="clr-namespace:FlightScheduleDME.Model"
+        x:Name="Window">
+    <Window.DataContext>
+        <viewModel:DepartureWindowViewModel />
+    </Window.DataContext>
+    <Window.Resources>
+        <SolidColorBrush x:Key="Cancelled" Color="#B30000" Opacity="0.5" />
+        <SolidColorBrush x:Key="Delayed" Color="#FFC203" Opacity="0.5" />
+        <DataTemplate DataType="{x:Type models:Departure}" x:Key="DepartureRowTemplate">
+            <Border BorderThickness="0,2" CornerRadius="10"
+                    SnapsToDevicePixels="True" IsHitTestVisible="False">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding FlightStatus}" Value="2">
+                                <Setter Property="Background" Value="{StaticResource Delayed}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding FlightStatus}" Value="3">
+                                <Setter Property="Background" Value="{StaticResource Cancelled}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" MinWidth="225" />
+                        <ColumnDefinition Width="Auto" MinWidth="350" />
+                        <ColumnDefinition Width="Auto" MinWidth="150"/>
+                        <ColumnDefinition Width="Auto" MinWidth="100"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" FontSize="24" Padding="10,0" Text="{Binding PlannedTime,StringFormat={}{0:HH:mm}}" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" FontSize="20" Padding="10,0" Foreground="#FFC203" Text='{Binding ActualTime,StringFormat={}{0:HH:mm},TargetNullValue=""}' />
+                    <TextBlock Grid.Row="1" Grid.Column="1" FontSize="18" Foreground="#FFC203" Text="{Binding FlightNumber}" />
+                    <TextBlock Grid.Row="0" Grid.Column="1" FontSize="24" Text="{Binding City}" />
+                    <TextBlock Grid.Row="0" Grid.Column="2" FontSize="24" Text="{Binding FlightStatusString}" />
+                    <TextBlock Grid.Row="0" Grid.Column="3" FontSize="24" Padding="10,0" Text="{Binding CheckInDesk}" />
+                    <TextBlock Grid.Row="0" Grid.Column="4" FontSize="24" Padding="10,0" Text="{Binding Gate}" />
+                    <!--<TextBlock Grid.Row="0" Grid.Column="5" FontSize="24" Text="{Binding BoardingStatus}"/>
+                    <TextBlock Grid.Row="0" Grid.Column="6" FontSize="24" Text="{Binding RegistrationStatus}" />-->
+                </Grid>
+            </Border>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="10*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition>
+                <ColumnDefinition.Style>
+                    <Style TargetType="{x:Type ColumnDefinition}">
+                        <Setter Property="Width" Value="*" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding TwoColumnPerWindow}" Value="False">
+                                <Setter Property="Width" Value="0" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ColumnDefinition.Style>
+            </ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0" Grid.ColumnSpan="2" Background="#FFC203">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" FontSize="48" Text="Вылет" TextAlignment="Center" />
+            <TextBlock Grid.Column="1" FontSize="48" Text="{Binding CurrentDateTime, StringFormat='{}{0:dd.MM.yyyy HH:mm}'}" TextAlignment="Center" />
+            <TextBlock Grid.Column="2" FontSize="48" Text="Departures" TextAlignment="Center" />
+        </Grid>
+        <ListView Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Departures1}" ItemTemplate="{StaticResource DepartureRowTemplate}" Background="#363a4a" Foreground="White"
+                  HorizontalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Hidden"/>
+        <ListView Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Departures2}" ItemTemplate="{StaticResource DepartureRowTemplate}" Background="#363a4a" Foreground="White"
+                  HorizontalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                  Visibility="{Binding ElementName=Window,Path=DataContext.TwoColumnPerWindow, Converter={StaticResource BooleanToVisibilityConverter}}" />
+    </Grid>
+</Window>
