@@ -3,7 +3,7 @@ using System.Windows.Input;
 
 namespace FlightScheduleDME.View
 {
-    public partial class DepartureWindow : Window
+    public partial class DepartureWindow
     {
         public DepartureWindow()
         {

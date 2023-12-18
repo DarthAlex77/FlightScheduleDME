@@ -71,9 +71,9 @@ namespace FlightScheduleDME.ViewModel
 
         #region Properties
 
-        private List<Departure> AllDepartures { get; set; }
-        public  int             LinesPerTable { get; set; }
-        public  int             WindowNumber  { get; set; }
+        private List<Departure>? AllDepartures { get; set; }
+        public  int              LinesPerTable { get; set; }
+        public  int              WindowNumber  { get; set; }
 
         #endregion
 

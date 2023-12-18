@@ -1,28 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace FlightScheduleDME.View
 {
     /// <summary>
-    /// Interaction logic for ArrivalWindow.xaml
+    ///     Interaction logic for ArrivalWindow.xaml
     /// </summary>
-    public partial class ArrivalWindow : Window
+    public partial class ArrivalWindow
     {
         public ArrivalWindow()
         {
             InitializeComponent();
         }
+
         private void MainWindow_StateChanged(object sender, EventArgs e)
         {
             if (WindowState == WindowState.Maximized)

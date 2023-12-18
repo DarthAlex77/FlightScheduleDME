@@ -17,19 +17,19 @@ namespace FlightScheduleDME
             IConfigurationSection section = config.GetSection(nameof(FlightScheduleConfig));
             Settings = section.Get<FlightScheduleConfig>() ?? throw new InvalidOperationException();
             int departureWindowNumber = 0;
-            int arrivalWindowNumber = 0;
+            int arrivalWindowNumber   = 0;
             foreach (WindowConfig windowConfig in Settings.WindowConfigs)
             {
                 if (windowConfig.IsArrival)
                 {
                     ArrivalWindow          arrivalWindow = new ArrivalWindow();
-                    ArrivalWindowViewModel vm              = (ArrivalWindowViewModel) arrivalWindow.DataContext;
+                    ArrivalWindowViewModel vm            = (ArrivalWindowViewModel) arrivalWindow.DataContext;
                     vm.TwoColumnPerWindow = windowConfig.TwoColumnPerWindow;
                     vm.LinesPerTable      = windowConfig.LinesPerTable;
                     vm.WindowNumber       = arrivalWindowNumber;
                     if (windowConfig.TwoColumnPerWindow)
                     {
-                        arrivalWindowNumber = + 2;
+                        arrivalWindowNumber = +2;
                     }
                     else
                     {
@@ -47,7 +47,7 @@ namespace FlightScheduleDME
                     vm.WindowNumber       = departureWindowNumber;
                     if (windowConfig.TwoColumnPerWindow)
                     {
-                        departureWindowNumber =+ 2;
+                        departureWindowNumber = +2;
                     }
                     else
                     {

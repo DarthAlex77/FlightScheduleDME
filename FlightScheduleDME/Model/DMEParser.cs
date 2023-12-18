@@ -21,14 +21,14 @@ namespace FlightScheduleDME.Model
             {
                 throw new Exception("day must be 0(today) or 1 (tomorrow)");
             }
-            HtmlParser     parser = new HtmlParser();
-            HttpClient     client = new HttpClient();
-            bool           parsed = false;
-            string         html;
+            HtmlParser     parser   = new HtmlParser();
+            HttpClient     client   = new HttpClient();
+            bool           parsed   = false;
             List<IElement> elements = new List<IElement>(150);
             int            @try     = 0;
             while (!parsed)
             {
+                string html;
                 try
                 {
                     html = client.GetStringAsync($"https://m.dme.ru/passengers/flight/live-board/?direction={direction}&searchtext=&periodday={day}&periodhour={hour}").Result;
@@ -55,10 +55,12 @@ namespace FlightScheduleDME.Model
             List<Flight> flights = new List<Flight>(50);
             foreach (IElement element in DownloadSite(directory, hour, day))
             {
-                Flight flight = new Flight();
-                flight.Id = "https://m.dme.ru/" + element.Children[0].GetAttribute("href");
-                flight.ActualTime = string.IsNullOrWhiteSpace(element.GetElementsByClassName("actualDateFlight")[0].TextContent) ? null
-                                    : DateTime.Parse(element.GetElementsByClassName("actualDateFlight")[0].TextContent);
+                Flight flight = new Flight
+                {
+                    Id = "https://m.dme.ru/" + element.Children[0].GetAttribute("href"),
+                    ActualTime = string.IsNullOrWhiteSpace(element.GetElementsByClassName("actualDateFlight")[0].TextContent) ? null
+                                 : DateTime.Parse(element.GetElementsByClassName("actualDateFlight")[0].TextContent)
+                };
                 if (day == 0)
                 {
                     flight.PlannedTime = string.IsNullOrWhiteSpace(element.GetElementsByClassName("plannedDateFlight")[0].TextContent) ? DateTime.Today
@@ -175,7 +177,7 @@ namespace FlightScheduleDME.Model
                     html   = client.GetStringAsync(id).Result;
                     parsed = true;
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     Thread.Sleep(TimeSpan.FromSeconds(1));
                     @try++;
@@ -242,7 +244,7 @@ namespace FlightScheduleDME.Model
                     html   = client.GetStringAsync(id).Result;
                     parsed = true;
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     Thread.Sleep(TimeSpan.FromSeconds(1));
                     @try++;

@@ -1,13 +1,11 @@
-﻿using System.ComponentModel;
-
-namespace FlightScheduleDME.Model
+﻿namespace FlightScheduleDME.Model
 {
     public enum FlightStatus
     {
-        OnTime = 0,
-        Arrived = 1,
-        Delayed = 2,
+        OnTime    = 0,
+        Arrived   = 1,
+        Delayed   = 2,
         Cancelled = 3,
-        Departed = 4
+        Departed  = 4
     }
 }
