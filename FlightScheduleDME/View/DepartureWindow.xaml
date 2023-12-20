@@ -56,6 +56,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="10*" />
+            <RowDefinition Height="{Binding ElementName=TextBlock, Path=ActualHeight,Mode=OneWay}" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -72,7 +73,7 @@
                 </ColumnDefinition.Style>
             </ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Row="0" Grid.ColumnSpan="2" Background="#FFC203">
+        <Grid x:Name="Grid" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Background="#FFC203">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
@@ -113,5 +114,8 @@
                 </Style>
             </ListView.ItemContainerStyle>
         </ListView>
+        <TextBlock x:Name="TextBlock" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Background="#FFC203" Height="{Binding ElementName=Grid,Path=ActualHeight }" FontSize="24"
+                   TextWrapping="Wrap" TextAlignment="Center" Text="{Binding InfoString}" Visibility="{Binding InfoString,Converter={StaticResource StringToVisibilityConverter}}" />
+
     </Grid>
 </Window>

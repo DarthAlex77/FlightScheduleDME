@@ -6,7 +6,7 @@
         <ResourceDictionary>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
             <helpers:EnumConverter x:Key="EnumConverter" />
+            <helpers:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
         </ResourceDictionary>
-
     </Application.Resources>
 </Application>

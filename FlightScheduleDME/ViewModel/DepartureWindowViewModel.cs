@@ -9,6 +9,7 @@ namespace FlightScheduleDME.ViewModel
     {
         public DepartureWindowViewModel()
         {
+            InfoString      = App.Settings.InfoString;
             CurrentDateTime = DateTime.Now;
             Timer timeUpdater          = new Timer(TimeSpan.FromSeconds(5));
             Timer allDeparturesUpdater = new Timer(TimeSpan.FromMinutes(10));
@@ -71,6 +72,7 @@ namespace FlightScheduleDME.ViewModel
 
         #region Properties
 
+        public  string           InfoString    { get; set; }
         private List<Departure>? AllDepartures { get; set; }
         public  int              LinesPerTable { get; set; }
         public  int              WindowNumber  { get; set; }
