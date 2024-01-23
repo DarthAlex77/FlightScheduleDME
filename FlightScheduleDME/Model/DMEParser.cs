@@ -190,7 +190,7 @@ namespace FlightScheduleDME.Model
             IHtmlDocument document = parser.ParseDocument(html);
             details[0] = document.GetElementById("offsetStart")?.TextContent.Replace(" \n", "").Trim();
             IHtmlCollection<IElement> elements = document.GetElementsByClassName("details")[0].GetElementsByTagName("li");
-            string[]                  strings1 = elements[7].TextContent.Replace(" \n", "").Trim().Split('\n');
+            string[]                  strings1 = elements[8].TextContent.Replace(" \n", "").Trim().Split('\n');
             details[1] = strings1.Length > 1 ? strings1[1].Trim() : string.Empty;
             return details;
         }
@@ -257,10 +257,10 @@ namespace FlightScheduleDME.Model
             IHtmlDocument             document = parser.ParseDocument(html);
             IHtmlCollection<IElement> elements = document.GetElementsByClassName("details")[0].GetElementsByTagName("li");
             string[]                  strings1 = elements[4].TextContent.Replace(" \n", "").Trim().Split('\n');
-            string[]                  strings2 = elements[7].TextContent.Replace(" \n", "").Trim().Split('\n');
-            string[]                  strings3 = elements[8].TextContent.Replace(" \n", "").Trim().Split('\n');
-            string[]                  strings4 = elements[9].TextContent.Replace(" \n", "").Trim().Split('\n');
-            string[]                  strings5 = elements[10].TextContent.Replace(" \n", "").Trim().Split('\n');
+            string[]                  strings2 = elements[8].TextContent.Replace(" \n", "").Trim().Split('\n');
+            string[]                  strings3 = elements[9].TextContent.Replace(" \n", "").Trim().Split('\n');
+            string[]                  strings4 = elements[10].TextContent.Replace(" \n", "").Trim().Split('\n');
+            string[]                  strings5 = elements[11].TextContent.Replace(" \n", "").Trim().Split('\n');
             details[0] = strings1.Length > 1 ? strings1[1].Trim() : string.Empty;
             details[1] = strings2.Length > 1 ? strings2[1].Trim() : string.Empty;
             details[2] = strings3.Length > 1 ? strings3[1].Trim() : string.Empty;
